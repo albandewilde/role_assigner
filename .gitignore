@@ -25,3 +25,9 @@ cabal.project.local~
 
 # vim swpa files
 *.swp
+
+# environment variable
+.env
+
+# bot roles configuration
+roles.json
