@@ -1,0 +1,21 @@
+# Some files
+LICENSE
+README.md
+
+# Environment variables
+.env
+
+# vim swap file
+*.vim
+
+# Templates file
+*.tpl
+
+# git things
+.git/
+.gitignore
+
+# Docker things
+Dockerfile
+docker-compose.yml
+.dockerignore
