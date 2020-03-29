@@ -11,5 +11,6 @@ FROM alpine
 WORKDIR /bin/ra
 
 COPY --from=builder /bin/ra .
+COPY roles.json .
 
 CMD ["./ra"]
