@@ -54,3 +54,8 @@ Presents variable in the `.env` file:
 - `messages` → Messages id watched by the bot (serarate by a comma then a space `, `). When reaction are added
 to that message, if it correspond to a role (defined in the `roles.json` file),
 then the role is added to the user which added the emote.
+
+The order of channels and messages is important !  
+The message id 1 (index 0) must be in the channel id 1 (with the index 0).
+In the `channels` and `messages` variables.
+
