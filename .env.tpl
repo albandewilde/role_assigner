@@ -1,3 +1,3 @@
 discord=<your_discord_token>
-channel=<channel_where_is_the_watched_message>
-message=<message_id_watching_reaction>
+channels=<channel_where_is_the_watched_message>, <another_channel>
+messages=<message_id_watching_reaction>, <another_message>

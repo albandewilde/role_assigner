@@ -50,7 +50,7 @@ The `.env.tpl` file is here to help you complete it.
 Presents variable in the `.env` file:
 
 - `discord` → This is the token of your bot.
-- `channel` → This is the channel id where the watched message is.
-- `message` → This is the message id watched by the bot. When reaction are added
+- `channels` → Channels id where messages are watched (separate by a comma then a space `, `.
+- `messages` → Messages id watched by the bot (serarate by a comma then a space `, `). When reaction are added
 to that message, if it correspond to a role (defined in the `roles.json` file),
 then the role is added to the user which added the emote.

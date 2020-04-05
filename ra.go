@@ -7,22 +7,27 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	dgo "github.com/bwmarrin/discordgo"
 )
 
 var discordToken string
-var channelId string
-var messageId string
+var channelsId []string
+var messagesId []string
 
 func init() {
 	// Read the discord token
 	discordToken = os.Getenv("discord")
 
 	// Read the channel and message id
-	channelId = os.Getenv("channel")
-	messageId = os.Getenv("message")
+	channelsId = strings.Split(os.Getenv("channels"), ", ")
+	messagesId = strings.Split(os.Getenv("messages"), ", ")
+
+	if len(channelsId) != len(messagesId) {
+		log.Fatal("Not the same number of channelsId and messagesId")
+	}
 }
 
 func main() {
@@ -53,7 +58,7 @@ func main() {
 }
 
 func manageRolesAdd(s *dgo.Session, m *dgo.MessageReactionAdd) {
-	if m.ChannelID == channelId && m.MessageID == messageId {
+	if rolesAssignerMessage(m.MessageID, m.ChannelID) {
 		guildRoles, _ := s.GuildRoles(m.GuildID)
 		askedRoleId, _ := roleIdFromEmote(m.Emoji, guildRoles)
 
@@ -64,7 +69,7 @@ func manageRolesAdd(s *dgo.Session, m *dgo.MessageReactionAdd) {
 }
 
 func manageRolesRemove(s *dgo.Session, m *dgo.MessageReactionRemove) {
-	if m.ChannelID == channelId && m.MessageID == messageId {
+	if rolesAssignerMessage(m.MessageID, m.ChannelID) {
 		guildRoles, _ := s.GuildRoles(m.GuildID)
 		askedRoleId, _ := roleIdFromEmote(m.Emoji, guildRoles)
 
@@ -108,4 +113,14 @@ func readRoles() (roles map[string]string, err error) {
 		return
 	}
 	return
+}
+
+func rolesAssignerMessage(messageId, channelId string) bool {
+	for idx := 0; idx < len(messagesId); idx += 1 {
+		// Compare message and channel id have the same index
+		if messageId == messagesId[idx] && channelId == channelsId[idx] {
+			return true
+		}
+	}
+	return false
 }
